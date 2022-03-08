@@ -54,3 +54,16 @@ backend {{ haproxy_backend_name }}
 {% for backend in haproxy_backend_servers %}
     server {{ backend.name }} {{ backend.address }} cookie {{ backend.name }} check
 {% endfor %}
+
+# https://severalnines.com/resources/database-management-tutorials/mysql-load-balancing-haproxy-tutorial
+{% if haproxy_listen != '' %}
+listen {{ haproxy_listen_name }}
+    bind {{ haproxy_listen }}
+    mode {{ haproxy_listen_mode }}
+    balance {{ haproxy_listen_balance_method }}
+    option  httpchk
+
+{% for backend in haproxy_listen_servers %}
+    server {{ backend.name }} {{ backend.address }} {{ haproxy_listen_httpchk }}
+{% endfor %}
+{% endif %}

@@ -30,3 +30,9 @@ haproxy_global_vars: []
 haproxy_connect_timeout: 5000
 haproxy_client_timeout: 50000
 haproxy_server_timeout: 50000
+
+haproxy_listen: '0.0.0.0:3306'
+haproxy_listen_name: 'mysql-cluster'
+haproxy_listen_mode: 'tcp'
+haproxy_listen_balance_method: 'roundrobin'
+haproxy_listen_httpchk: 'check port 9200 inter 12000 rise 3 fall 3'
